@@ -1,8 +1,10 @@
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup {}
+
 local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
--- Fix Undefined global 'vim'
 lsp.configure('lua-language-server', {
     settings = {
         Lua = {
@@ -13,14 +15,16 @@ lsp.configure('lua-language-server', {
     }
 })
 
+
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mapping = {
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+}
 
-cmp.setup({
-    mapping = {
-        ['<CR>'] = cmp.mapping.confirm({select = false}),
-        ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-    }
+lsp.setup_nvim_cmp({
+    mapping = cmp_mappings
 })
 
 lsp.set_preferences({
@@ -50,7 +54,12 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = false
 })
+
+lspconfig.clangd.setup {
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    cmd = { "clangd", "--offset-encoding=utf-16" },
+}
 
 lsp.setup()

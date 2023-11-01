@@ -43,6 +43,11 @@ local plugins = {
     'mkropat/vim-ezguifont',
     'mg979/vim-visual-multi',
     'stevearc/oil.nvim',
+    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+
+    { 'echasnovski/mini.nvim', version = false },
 
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -101,11 +106,6 @@ local plugins = {
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'kyazdani42/nvim-web-devicons' },
-    },
-
-    {
-        'jose-elias-alvarez/null-ls.nvim',
-        dependencies = { "nvim-lua/plenary.nvim" },
     },
 }
 
